@@ -1,0 +1,4 @@
+class Solution:
+    def heightChecker(self, heights: list[int]) -> int:
+        expected = sorted(heights)
+        return sum(1 for actual, exp in zip(heights, expected) if actual != exp)
