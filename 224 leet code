@@ -1,0 +1,30 @@
+class Solution:
+    def calculate(self, s: str) -> int:
+        stack = []
+        result = 0
+        number = 0
+        sign = 1  # 1 for '+', -1 for '-'
+
+        for ch in s:
+            if ch.isdigit():
+                number = number * 10 + int(ch)
+            elif ch in "+-":
+                result += sign * number
+                number = 0
+                sign = 1 if ch == "+" else -1
+            elif ch == "(":
+                # Save outer result and sign before evaluating inside '('
+                stack.append(result)
+                stack.append(sign)
+                result = 0
+                sign = 1
+            elif ch == ")":
+                # Finish evaluating inside '(', then apply sign and add outer result
+                result += sign * number
+                number = 0
+                prev_sign = stack.pop()
+                prev_result = stack.pop()
+                result = prev_result + prev_sign * result
+
+        result += sign * number
+        return result
