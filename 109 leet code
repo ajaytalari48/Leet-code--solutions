@@ -12,7 +12,6 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
 class Solution:
     def sortedListToBST(self, head: ListNode | None) -> TreeNode | None:
         values = []
