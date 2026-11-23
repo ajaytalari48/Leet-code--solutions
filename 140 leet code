@@ -1,0 +1,19 @@
+class Solution:
+    def wordBreak(self, s: str, wordDict: list[str]) -> list[str]:
+        word_set = set(wordDict)
+        n = len(s)
+        memo: dict[int, list[str]] = {}
+        def dfs(start: int) -> list[str]:
+            if start == n:
+                return [""]
+            if start in memo:
+                return memo[start]
+            res: list[str] = []
+            for end in range(start + 1, n + 1):
+                word = s[start:end]
+                if word in word_set:
+                    for suffix in dfs(end):
+                        res.append(word if not suffix else f"{word} {suffix}")
+            memo[start] = res
+            return res
+        return dfs(0)
